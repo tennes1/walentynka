@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dla Ciebie</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #fef2f4;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            transition: background-color 1s ease;
+        }
+
+        h1 {
+            color: #e60073;
+            font-size: 2.5rem;
+            margin: 20px 0;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+
+        .heart-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        .heart {
+            width: 100px;
+            height: 100px;
+            background-color: #ff4d94;
+            transform: rotate(45deg);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: #ff4d94;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: -50px;
+            top: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .hidden {
+            opacity: 0;
+        }
+
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            display: none;
+        }
+
+        .confetti span {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff66b2;
+            animation: fall 4s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0);
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        .message {
+            display: none;
+            color: #e60073;
+            font-size: 2rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="hidden">Hej, coś dla Ciebie ❤️</h1>
+    <button class="heart-button" onclick="showLove()">
+        <div class="heart"></div>
+    </button>
+    <div class="confetti" id="confetti"></div>
+    <div class="message" id="message">Kocham Cię Misiu ❤️</div>
+
+    <script>
+        function showLove() {
+            const heartButton = document.querySelector('.heart-button');
+            const confetti = document.getElementById('confetti');
+            const message = document.getElementById('message');
+            const header = document.querySelector('h1');
+            
+           
+            heartButton.style.display = 'none';
+            header.classList.add('hidden');
+            document.body.style.backgroundColor = '#ffd1dc';
+
+            
+            confetti.style.display = 'block';
+            for (let i = 0; i < 100; i++) {
+                const particle = document.createElement('span');
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDelay = Math.random() * 4 + 's';
+                particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
+                confetti.appendChild(particle);
+            }
+
+            
+            setTimeout(() => {
+                message.style.display = 'block';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
